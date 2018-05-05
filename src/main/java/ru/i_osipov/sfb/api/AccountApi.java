@@ -94,7 +94,7 @@ public class AccountApi {
             response.status(HttpStatus.OK_200);
             return DataDto.create(AccountBalanceDto.create(accountId, accountService.getBalance(accountId)));
         } else {
-            response.status(HttpStatus.BAD_REQUEST_400);
+            response.status(HttpStatus.NOT_FOUND_404);
             return ErrorDto.create(String.format("Account with id %s does not exist", accountId));
         }
     }

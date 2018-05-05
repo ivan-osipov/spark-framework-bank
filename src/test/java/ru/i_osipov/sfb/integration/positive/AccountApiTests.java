@@ -18,6 +18,18 @@ import static ru.i_osipov.sfb.api.ParamsProcessingUtils.parseUuid;
 public class AccountApiTests {
 
     @Test
+    public void shouldGetBalance(Server server) {
+        Account account = server.getDataStore().createAccount(100.01);
+        when()
+                .get("/api/account/{id}/balance", account.getId())
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .body("data.accountId", equalTo(account.getId().toString()),
+                        "data.balance", equalTo(100.01));
+    }
+
+    @Test
     public void shouldCreateAccount(Server server) {
         when()
                 .post("/api/account/")

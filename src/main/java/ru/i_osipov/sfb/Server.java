@@ -41,11 +41,11 @@ public class Server {
 
             post("/", api::create, JsonTransformer.get());
             delete("/:id", api::delete, JsonTransformer.get());
+            get("/:id/balance", api::getBalance, JsonTransformer.get());
 
             post("/:id/replenishment/:amount", api::replenishment, JsonTransformer.get());
             post("/:id/withdrawal/:amount", api::withdrawal, JsonTransformer.get());
             post("/transfer/:from/to/:to/:amount", api::transfer, JsonTransformer.get());
-            get("/account/:id/balance", api::getBalance, JsonTransformer.get());
 
             exception(IncorrectUuid.class, (exception, request, response) -> {
                 logger.warn("Bad request. Incorrect UUID value", exception);

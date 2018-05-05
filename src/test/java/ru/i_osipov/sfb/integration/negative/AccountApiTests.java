@@ -17,6 +17,27 @@ import static org.hamcrest.core.IsEqual.equalTo;
 public class AccountApiTests {
 
     @Test
+    public void shouldInterruptWhenIdIsNotUUID() {
+        when()
+                .get("/api/account/{id}/balance", "someId")
+                .then()
+                .statusCode(400)
+                .contentType(ContentType.JSON)
+                .body("message", equalTo("The request contains an incorrect UUID value: someId"));
+    }
+
+    @Test
+    public void shouldInterruptBalanceGettingWhenAccountIsNotFound() {
+        UUID accountId = UUID.randomUUID();
+        when()
+                .get("/api/account/{id}/balance", accountId)
+                .then()
+                .statusCode(404)
+                .contentType(ContentType.JSON)
+                .body("message", equalTo(String.format("Account with id %s does not exist", accountId.toString())));
+    }
+
+    @Test
     public void shouldDeleteAccount() {
         when()
                 .delete("/api/account/{id}", UUID.randomUUID())
