@@ -1,4 +1,4 @@
-Example of usage a number technologies in simplified bank domain
+Example of usage a number of technologies in simplified bank domain
 
 Technologies and libs:
 - Spark Framework (routing / exception handlers / filters)
